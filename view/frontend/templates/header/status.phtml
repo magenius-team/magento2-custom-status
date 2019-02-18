@@ -1,0 +1,23 @@
+<?php
+// @codingStandardsIgnoreFile
+
+/** @var \Magenius\CustomerStatus\Block\Status $block */
+?>
+<li data-bind="scope: 'customer'">
+    <!-- ko if: customer().custom_status  -->
+    <span class="customer-status" data-bind="text: customer().custom_status"></span>
+    <!-- /ko -->
+</li>
+<script type="text/x-magento-init">
+        {
+            "*": {
+                "Magento_Ui/js/core/app": {
+                    "components": {
+                        "customer": {
+                            "component": "Magento_Customer/js/view/customer"
+                        }
+                    }
+                }
+            }
+        }
+</script>

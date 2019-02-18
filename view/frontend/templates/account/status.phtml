@@ -1,0 +1,28 @@
+<?php
+// @codingStandardsIgnoreFile
+
+/** @var \Magenius\CustomerStatus\Block\Status $block */
+?>
+<form class="form form-edit-account" action="<?= $block->escapeUrl($block->getUrl('customer/account/statusSave')) ?>"
+      method="post" id="form-validate" enctype="multipart/form-data"
+      data-hasrequired="<?= $block->escapeHtmlAttr(__('* Required Fields')) ?>" autocomplete="off">
+    <fieldset class="fieldset">
+        <?= $block->getBlockHtml('formkey') ?>
+        <div class="field choice">
+            <label class="label" for="change-custom-status"><span><?= $block->escapeHtml(__('Change Status')) ?></span></label>
+            <input type="text" name="custom_status" id="change-custom-status" data-role="change-custom-status"
+                   value="<?= $block->getCustomStatus() ?>"
+                   title="<?= $block->escapeHtmlAttr(__('Change Status')) ?>" class="input-text"/>
+        </div>
+        <div class="actions-toolbar">
+            <div class="primary">
+                <button type="submit" class="action save primary" title="<?= $block->escapeHtmlAttr(__('Save')) ?>">
+                    <span><?= $block->escapeHtml(__('Save')) ?></span></button>
+            </div>
+            <div class="secondary">
+                <a class="action back"
+                   href="<?= $block->escapeUrl($block->getBackUrl()) ?>"><span><?= $block->escapeHtml(__('Go back')) ?></span></a>
+            </div>
+        </div>
+    </fieldset>
+</form>
