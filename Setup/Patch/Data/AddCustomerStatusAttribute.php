@@ -9,10 +9,9 @@ use \Magento\Customer\Model\ResourceModel\Attribute as AttributeResourceModel;
 use Magento\Eav\Model\Entity\Attribute\SetFactory as AttributeSetFactory;
 use Magento\Framework\Setup\ModuleDataSetupInterface;
 use Magento\Framework\Setup\Patch\DataPatchInterface;
+use Magento\Framework\Setup\Patch\PatchRevertableInterface;
 
-/*TODO: PatchRevertableInterface*/
-
-class AddCustomerStatusAttribute implements DataPatchInterface
+class AddCustomerStatusAttribute implements DataPatchInterface, PatchRevertableInterface
 {
     /**
      * @var ModuleDataSetupInterface
@@ -109,5 +108,19 @@ class AddCustomerStatusAttribute implements DataPatchInterface
             ]
         );
         $this->attributeResourceModel->save($attribute);
+    }
+
+    /**
+     * Rollback all changes, done by this patch
+     *
+     * @return void
+     */
+    public function revert()
+    {
+        $customerSetup = $this->customerSetupFactory->create(['setup' => $this->moduleDataSetup]);
+        $customerSetup->removeAttribute(
+            Customer::ENTITY,
+            'custom_status'
+        );
     }
 }
