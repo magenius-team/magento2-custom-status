@@ -3,12 +3,12 @@ declare(strict_types=1);
 
 namespace Magenius\CustomerStatus\Controller\Account;
 
-use Magento\Framework\App\Action\Action;
+use Magento\Customer\Controller\AbstractAccount;
 use Magento\Framework\App\Action\Context;
 use Magento\Framework\App\ActionInterface;
 use Magento\Framework\View\Result\PageFactory;
 
-class Status extends Action implements ActionInterface
+class Status extends AbstractAccount implements ActionInterface
 {
     /**
      * @var PageFactory

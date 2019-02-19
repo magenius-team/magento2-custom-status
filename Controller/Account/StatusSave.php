@@ -9,11 +9,11 @@
 namespace Magenius\CustomerStatus\Controller\Account;
 
 use Magenius\CustomerStatus\Model\Status;
-use Magento\Framework\App\Action\Action;
+use Magento\Customer\Controller\AbstractAccount;
 use Magento\Framework\app\Action\Context;
 use Magento\Framework\App\ActionInterface;
 
-class StatusSave extends Action implements ActionInterface
+class StatusSave extends AbstractAccount implements ActionInterface
 {
     /**
      * @var Status
