@@ -1,0 +1,12 @@
+<form class="form-edit-account" action="" method="post" data-bind="event: {submit: save}" data-role="status-form">
+    <fieldset class="fieldset">
+        <div data-bind="html: formKeyHtml"></div>
+        <div class="field">
+            <label class="label" for="status_field">Status</label>
+            <input class="input-text" id="status_field" name="status_field" data-bind="value: status">
+        </div>
+        <div class="actions-toolbar">
+            <button class="action save primary">Save</button>
+        </div>
+    </fieldset>
+</form>

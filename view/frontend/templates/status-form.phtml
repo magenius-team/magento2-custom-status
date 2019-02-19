@@ -1,0 +1,14 @@
+<div id="status-form-wrapper" data-bind="scope: 'customer_status'">
+    <!-- ko template: getTemplate() --><!-- /ko -->
+</div>
+<script type="text/x-magento-init">
+    {
+        "#status-form-wrapper": {
+            "Magento_Ui/js/core/app": {
+                "components": {
+                    "customer_status": <?= $block->getWidgetJsonOptions(); ?>
+                }
+            }
+        }
+    }
+</script>

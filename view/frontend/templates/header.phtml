@@ -1,0 +1,19 @@
+<?php /** @var \Magenius\Test\Block\Status $block */ ?>
+<li data-bind="scope: 'status'">
+    <!-- ko if: status().customer_status -->
+    <span id="header-customer-status" data-bind="text: status().customer_status"></span>
+    <!-- /ko -->
+</li>
+<script type="text/x-magento-init">
+        {
+            "*": {
+                "Magento_Ui/js/core/app": {
+                    "components": {
+                        "status": {
+                            "component": "Magenius_CustomerStatus/js/view/status"
+                        }
+                    }
+                }
+            }
+        }
+</script>
