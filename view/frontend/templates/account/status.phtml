@@ -1,0 +1,24 @@
+<?php /** @var Magenius\CustomerStatus\Block\Account\Status $block */ ?>
+<?php if ($block->customerLoggedIn()): ?>
+    <li class="customer-status">
+        <span class="customer-name"
+              role="link"
+              tabindex="0"
+              data-bind="scope: 'customer'">
+            <span data-bind="text: customer().status"></span>
+        </span>
+    </li>
+    <script type="text/x-magento-init">
+        {
+            "*": {
+                "Magento_Ui/js/core/app": {
+                    "components": {
+                        "customer": {
+                            "component": "Magento_Customer/js/view/customer"
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+<?php endif; ?>

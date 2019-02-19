@@ -1,0 +1,29 @@
+<?php /** @var \Magenius\CustomerStatus\Block\Form\Status $block */ ?>
+<?php $attribute = $block->getCustomer()->getCustomAttribute('customer_status') ?>
+<?php $status = $attribute ? $attribute->getValue() : '' ?>
+<form class="form form-customer-status" action="<?php echo $block->escapeUrl($block->getUrl('status/customer/editPost')) ?>" method="post" id="form-validate" enctype="multipart/form-data" autocomplete="off">
+    <fieldset class="fieldset status">
+        <?= $block->getBlockHtml('formkey') ?>
+        <div class="field field-status">
+            <label class="label" for="status"><span><?php echo $block->escapeHtml(__('Status')) ?></span></label>
+            <div class="control">
+                <input type="text" id="status"
+                       name="status"
+                       title="<?php echo $block->escapeHtml(__('Status')) ?>"
+                       class="input-text"
+                       value="<?php echo $status ?>">
+            </div>
+        </div>
+    </fieldset>
+    <div class="actions-toolbar">
+        <div class="primary">
+            <button type="submit" class="action save primary" title="<?= $block->escapeHtmlAttr(__('Save')) ?>"><span><?= $block->escapeHtml(__('Save')) ?></span></button>
+        </div>
+    </div>
+</form>
+<script>
+    require(['jquery', "mage/mage"], function(jQuery){
+
+        jQuery('#form-validate').mage('form').mage('validation');
+    });
+</script>
