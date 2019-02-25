@@ -1,0 +1,24 @@
+<?php
+
+/** @var Magento\Customer\Block\Account\Customer $block */
+?>
+<?php if ($block->customerLoggedIn()): ?>
+    <li class="show-status" data-bind="scope: 'status-display'">
+            <span data-bind="text: status().msg">
+            </span>
+    </li>
+    <script type="text/x-magento-init">
+        {
+            "*": {
+                "Magento_Ui/js/core/app": {
+                    "components": {
+                        "status-display": {
+                            "component": "Magenius_Test/js/status"
+                        }
+                    }
+                }
+            }
+        }
+
+    </script>
+<?php endif; ?>

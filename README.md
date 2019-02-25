@@ -1,3 +1,3 @@
-## Customer status module
+# Customer status module
 
-Supported version - Magento 2.3.* 
+Supported version - Magento 2.3.*

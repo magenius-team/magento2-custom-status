@@ -1,0 +1,44 @@
+<?php
+
+/* @var $block \Magenius\Test\Block\Status\Edit */
+
+$statusMessage = $block->status->getCustomerStatus();
+?>
+<form class="form form-edit-status"
+      action="<?= $block->escapeUrl($block->getUrl('test/status/save')) ?>"
+      method="post"
+      id="form-status"
+      enctype="multipart/form-data"
+      autocomplete="off">
+    <fieldset class="fieldset status">
+        <div class="field status">
+            <label for="status" class="label">
+                <span><?= $block->escapeHtml(__('Status message')) ?></span>
+            </label>
+            <div class="control">
+                <input type="text"
+                       name="status"
+                       alt="status"
+                       id="status"
+                       class="input-text"
+                       value="<?= $statusMessage ?>"
+            </div>
+        </div>
+    </fieldset>
+    <div class="actions-toolbar">
+        <div class="primary">
+            <button type="submit" class="action save primary" title="<?= $block->escapeHtmlAttr(__('Save')) ?>"><span><?= $block->escapeHtml(__('Save')) ?></span></button>
+        </div>
+        <div class="secondary">
+            <a class="action back" href="<?= $block->escapeUrl($block->getBackUrl()) ?>"><span><?= $block->escapeHtml(__('Go back')) ?></span></a>
+        </div>
+    </div>
+</form>
+
+<script type="text/x-magento-init">
+    {"
+        [data-role=save-customer-status]": {
+            "Magento_Ui/js/core/app": <?php /* @escapeNotVerified */ echo $block->getJsLayout(); ?>
+        }
+    }
+</script>

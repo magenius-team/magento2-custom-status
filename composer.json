@@ -1,0 +1,17 @@
+{
+  "name": "magenius/test",
+  "description": "Magenius Test Module",
+  "require": {
+    "php": "~7.0.6|~7.1.0"
+  },
+  "type": "magento2-module",
+  "license": "proprietary",
+  "autoload": {
+    "psr-4": {
+      "Magenius\\Test\\": ""
+    },
+    "files": [
+      "registration.php"
+    ]
+  }
+}
