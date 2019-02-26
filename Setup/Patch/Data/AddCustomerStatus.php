@@ -5,9 +5,7 @@ namespace Magenius\Test\Setup\Patch\Data;
 use Magento\Customer\Model\Customer;
 use Magento\Customer\Setup\CustomerSetup;
 use Magento\Customer\Setup\CustomerSetupFactory;
-use Magento\Eav\Model\Entity\Attribute\Set as AttributeSet;
-use Magento\Eav\Model\Entity\Attribute\SetFactory as AttributeSetFactory;
-use Magento\Eav\Model\ResourceModel\Entity\Attribute as AttributeResource;
+use Magento\Customer\Model\ResourceModel\AttributeFactory as AttributeResourceFactory;
 use Magento\Framework\Setup\ModuleDataSetupInterface;
 use Magento\Framework\Setup\Patch\DataPatchInterface;
 use Magento\Framework\Setup\Patch\PatchRevertableInterface;
@@ -29,32 +27,24 @@ class AddCustomerStatus implements DataPatchInterface, PatchRevertableInterface
     private $_moduleDataSetup;
 
     /**
-     * @var AttributeSetFactory
+     * @var AttributeResourceFactory
      */
-    private $_attributeSetFactory;
-
-    /**
-     * @var AttributeResource
-     */
-    private $_attributeResource;
+    private $_attributeResourceFactory;
 
     /**
      * AddAttribute constructor.
      * @param ModuleDataSetupInterface $moduleDataSetup
-     * @param AttributeSetFactory $attributeSetFactory
      * @param CustomerSetupFactory $customerSetupFactory
-     * @param AttributeResource $attributeResource
+     * @param AttributeResourceFactory $attributeResourceFactory
      */
     public function __construct(
         ModuleDataSetupInterface $moduleDataSetup,
-        AttributeSetFactory $attributeSetFactory,
         CustomerSetupFactory $customerSetupFactory,
-        AttributeResource $attributeResource
+        AttributeResourceFactory $attributeResourceFactory
     ) {
         $this->_moduleDataSetup = $moduleDataSetup;
         $this->_customerSetupFactory = $customerSetupFactory;
-        $this->_attributeSetFactory = $attributeSetFactory;
-        $this->_attributeResource = $attributeResource;
+        $this->_attributeResourceFactory = $attributeResourceFactory;
     }
 
     /**
@@ -74,13 +64,6 @@ class AddCustomerStatus implements DataPatchInterface, PatchRevertableInterface
         /** @var CustomerSetup $customerSetup */
         $customerSetup = $this->_customerSetupFactory->create(['setup' => $this->_moduleDataSetup]);
 
-        $customerEntity = $customerSetup->getEavConfig()->getEntityType('customer');
-        $attributeSetId = $customerEntity->getDefaultAttributeSetId();
-
-        /** @var $attributeSet AttributeSet */
-        $attributeSet = $this->_attributeSetFactory->create();
-        $attributeGroupId = $attributeSet->getDefaultGroupId($attributeSetId);
-
         $customerSetup->addAttribute(
             Customer::ENTITY,
             'customer_status',
@@ -90,23 +73,20 @@ class AddCustomerStatus implements DataPatchInterface, PatchRevertableInterface
                 'input' => 'text',
                 'required' => false,
                 'visible' => true,
-                'user_defined' => true,
                 'position' => 999,
                 'system' => false
             ]
         );
 
+
         $statusAttr = $customerSetup->getEavConfig()
-            ->getAttribute(Customer::ENTITY, 'customer_status')
-            ->addData(
+            ->getAttribute(Customer::ENTITY, 'customer_status');
+        $statusAttr->addData(
                 [
-                    'attribute_set_id' => $attributeSetId,
-                    'attribute_group_id' => $attributeGroupId,
                     'used_in_forms' => ['adminhtml_customer']
                 ]
             );
-
-        $this->_attributeResource->save($statusAttr);
+        $this->_attributeResourceFactory->create()->save($statusAttr);
     }
 
     /**
